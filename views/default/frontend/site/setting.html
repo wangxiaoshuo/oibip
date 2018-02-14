@@ -1,0 +1,399 @@
+<head>
+    <meta charset="UTF-8">
+    <title>个人资料</title>
+    <link rel="stylesheet" href="/common/css/setting_left.css">
+    <style>
+        .username_note,.sex{
+            color: #aaa;
+            margin-left: 33px;
+            height: 38px;
+            display: block;
+            float: left;
+            line-height: 38px;
+        }
+        .city select{
+            height: 30px;
+           border-color: #D2D2D2!important;
+            color: #99a2aa;
+            border-radius: 2px;
+        }
+        .save_1,.save_2{
+            width: 110px;
+            height: 36px;
+            margin-left: 31%;
+            margin-top: 40px;
+        }
+        .sex_note{color: lightcoral;text-decoration: underline;}
+        .sex_note:hover{color:tomato}
+        .xueli,.job,.qg,.smoke,.drink,.aihao,.xingge{
+            height: 30px;
+            border-color: #D2D2D2!important;
+            color: #99a2aa;
+            border-radius: 2px;
+            width:94px;
+            margin-right:56px;
+        }
+    </style>
+</head>
+<div class="content">
+    <div class="left">
+        <ul>
+            <li>
+                <a href="/site/index.html">
+                    <i><img src="/common/images/zhuye.png" alt="" width="20px" height="20px"></i><span>主页</span>
+                </a>
+            </li>
+            <li class="l_selected">
+                <a href="javascript:void(0)">
+                    <i><img src="/common/images/wszl.png" alt="" width="20px" height="20px"></i><span>个人资料</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/face.html">
+                    <i><img src="/common/images/tx.png" alt="" width="20px" height="20px"></i><span>我的头像</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <i><img src="/common/images/wuping.png" alt="" width="20px" height="20px"></i><span>我的物品</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <i><img src="/common/images/xiangce.png" alt="" width="20px" height="20px"></i><span>我的相册</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <i><img src="/common/images/chongzhi.png" alt="" width="20px" height="20px"></i><span>账户充值</span>                </a>
+            </li>
+            <li>
+                <a href="">
+                    <i><img src="/common/images/renzheng.png" alt="" width="20px" height="20px"></i><span>实名认证</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <i><img src="/common/images/yaoqing.png" alt="" width="20px" height="20px"></i><span>邀请注册</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <i><img src="/common/images/safe.png" alt="" width="20px" height="20px"></i><span>账号安全</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="right">
+        <div class="right_top">
+            基础资料
+        </div>
+        <div class="right_content">
+            <div class="basic">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">昵称：</label>
+                    <div class="layui-input-block" style="float:left;margin-left:0px">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input nickname" value={{nickname}} style="border-radius: 5px;width:225px;">
+                    </div>
+                    <span class="username_note">注：修改一次昵称需要消耗6个y币</span>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">性别：</label>
+                    <span class="sex" style="margin-left:1px">{{sex}}</span>
+                    <span class="username_note">注：在 <a href="" class="sex_note">实名认证</a> 中可申请免费修改性别哦</span>
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">我的签名：</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="设置您的签名" class="layui-textarea qm" style="width:618px">{{qm}}</textarea>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">出生日期：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="date" id="date1" autocomplete="off" class="layui-input born_at" value={{born_at}} style="width:190px">
+                    </div>
+                </div>
+                <div class="layui-input-inline city job_city">
+                    <label class="layui-form-label">所在城市：</label>
+                    <div class="layui-input-inline job_city_selected" data-toggle="distpicker">
+
+                    </div>
+                </div><div class="clear"></div>
+                <button class="layui-btn save_1">保存</button>
+            </div>
+        </div>
+
+        <div class="right_top" style="margin-top:5px">
+            详细资料
+        </div>
+        <div class="right_content">
+            <div class="detail">
+                <div class="layui-input-inline city born_city">
+                    <label class="layui-form-label">籍贯：</label>
+                    <div class="layui-input-inline born_city_selected" data-toggle="distpicker">
+
+                    </div>
+                </div><div class="clear"></div>
+
+                <div class="layui-form-item" style="margin-top:20px;">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">学历： </label>
+                        <div class="layui-input-block">
+                            <select name="interest" lay-filter="xueli" class="xueli">
+                                <option value="0" selected="">未设置</option>
+                                <option value="1">小学</option>
+                                <option value="2">初中</option>
+                                <option value="3">高中</option>
+                                <option value="4">大专</option>
+                                <option value="5">本科</option>
+                                <option value="6">硕士研究生</option>
+                                <option value="7">博士研究生</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">职业： </label>
+                        <div class="layui-input-block">
+                            <select name="interest" lay-filter="job" class="job">
+                                <option value="0" selected="">未设置</option>
+                                <option value="1">自由职业者</option>
+                                <option value="2">上班族</option>
+                                <option value="3">公司高管</option>
+                                <option value="4">BOSS</option>
+                                <option value="5">学生</option>
+                                <option value="6">创业者</option>
+                                <option value="7">待业</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">情感状况： </label>
+                        <div class="layui-input-block">
+                            <select name="interest" lay-filter="qinggan" class="qg">
+                                <option value="0" selected="">未设置</option>
+                                <option value="1">单身</option>
+                                <option value="2">恋爱中</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">身高：</label>
+                        <div class="layui-input-block" style="float:left;margin-left:0px">
+                            <input type="text" name="title" lay-verify="title" autocomplete="off"  class="layui-input height" value='{{height}}' style="border-radius: 2px;width:94px;height:30px">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">是否抽烟： </label>
+                        <div class="layui-input-block">
+                            <select name="interest" lay-filter="smoke" class="smoke">
+                                <option value="0" selected="">未设置</option>
+                                <option value="1">不抽烟</option>
+                                <option value="2">抽烟</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">是否喝酒： </label>
+                        <div class="layui-input-block">
+                            <select name="interest" lay-filter="drink" class="drink">
+                                <option value="0" selected="">未设置</option>
+                                <option value="1">不喝酒</option>
+                                <option value="2">聚会喝一点</option>
+                                <option value="3">能喝</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">兴趣爱好： </label>
+                        <div class="layui-input-block">
+                            <select name="interest" lay-filter="aihao" class="aihao">
+                                <option value="0" selected="">未设置</option>
+                                <option value="1">吃东西</option>
+                                <option value="2">小说</option>
+                                <option value="3">电影</option>
+                                <option value="4">运动</option>
+                                <option value="5">睡觉</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">性格： </label>
+                        <div class="layui-input-block">
+                            <select name="interest" lay-filter="xingge" class="xingge">
+                                <option value="0" selected="">未设置</option>
+                                <option value="1">阳光乐观</option>
+                                <option value="2">多愁善感</option>
+                                <option value="3">温柔可耐</option>
+                                <option value="4">直率洒脱</option>
+                                <option value="5">成熟稳重</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="layui-btn save_2">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div hidden class="username">{{username}}</div>
+<div hidden class="job_city_province">{{job_city_province}}</div>
+<div hidden class="job_city_city">{{job_city_city}}</div>
+<div hidden class="job_city_area">{{job_city_area}}</div>
+<div hidden class="born_city_province">{{born_city_province}}</div>
+<div hidden class="born_city_city">{{born_city_city}}</div>
+<div hidden class="born_city_area">{{born_city_area}}</div>
+<div hidden class="xueli_v">{{xueli}}</div>
+<div hidden class="job_v">{{job}}</div>
+<div hidden class="qg_v">{{qg}}</div>
+<div hidden class="smoke_v">{{smoke}}</div>
+<div hidden class="drink_v">{{drink}}</div>
+<div hidden class="aihao_v">{{favourite}}</div>
+<div hidden class="xingge_v">{{character}}</div>
+<script type="text/javascript" src="/common/js/lay/laydate.js"></script>
+<script>
+    layui.use('laydate', function() {
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#date'
+        });
+        laydate.render({
+            elem: '#date1'
+        });
+    })
+    var aa = $(".job_city_city").text()
+    console.log(aa)
+    $(".job_city_selected").html(
+        '<select data-province='+$(".job_city_province").text()+' class="p"></select>'+
+        '<select data-city='+aa+' class="c"></select>'+
+        '<select data-district='+$(".job_city_area").text()+' class="a"></select>')
+    $(".born_city_selected").html(
+        '<select data-province='+$(".born_city_province").text()+' class="p"></select>'+
+        '<select data-city='+$(".born_city_city").text()+' class="c"></select>'+
+        '<select data-district='+$(".born_city_area").text()+' class="a"></select>')
+    $(function(){
+        console.log($(".job_city_city").text())
+        $(".job_city .p").attr('data-province',$(".job_city_province").text())
+        $(".job_city .c").val($(".job_city_city").text())
+        $(".job_city .a").val($(".job_city_area").text())
+
+        $(".xueli").find("option[value='"+$(".xueli_v").text()+"']").attr("selected","selected")
+        $(".job").find("option[value='"+$(".job_v").text()+"']").attr("selected","selected")
+        $(".qg").find("option[value='"+$(".qg_v").text()+"']").attr("selected","selected")
+        $(".smoke").find("option[value='"+$(".smoke_v").text()+"']").attr("selected","selected")
+        $(".drink").find("option[value='"+$(".drink_v").text()+"']").attr("selected","selected")
+        $(".aihao").find("option[value='"+$(".aihao_v").text()+"']").attr("selected","selected")
+        $(".xingge").find("option[value='"+$(".xingge_v").text()+"']").attr("selected","selected")
+        $(".save_1").on("click",function () {
+            var nickname = $(".nickname").val()
+            var username = $(".username").text()
+            var gold = $(".gold").text()
+            var qm = $(".qm").val()
+            var born_at = $(".born_at").val()
+            var job_city_province = $(".job_city .p").val()
+            var job_city_city = $(".job_city .c").val()
+            var job_city_area = $(".job_city .a").val()
+            var born_year = born_at.split("-")[0]
+            var age = parseInt(new Date().getFullYear() - born_year)
+            if(!nickname || !qm || !born_at || !job_city_province || !job_city_city || !job_city_area){
+                layer.msg("请完善资料后保存！")
+            }else{
+
+                //判断是否改了昵称
+                if(nickname == username){
+                    $.ajax({
+                        url:"/user/free/update",
+                        type:"post",
+                        data:{qm:qm,born_at:born_at,job_city_province:job_city_province,job_city_city:job_city_city,job_city_area:job_city_area,age:age},
+                        success:function (res) {
+                            if(res == true){
+                                layer.msg("保存成功！")
+                            }
+                        },
+                        error:function(err){
+                            layer.msg("服务器繁忙，稍后再试！")
+                        }
+                    })
+                }else{
+                    var left_gold = parseInt(gold - 6)
+                    if(left_gold >= 0){
+                        $.ajax({
+                            url:"/user/cost/update",
+                            type:"post",
+                            data:{nickname:nickname,qm:qm,born_at:born_at,job_city_province:job_city_province,job_city_city:job_city_city,job_city_area:job_city_area,age:age,gold:left_gold},
+                            success:function (res) {
+                                if(res == true){
+                                    layer.msg("保存成功！")
+                                    setTimeout(function(){
+                                        window.location.reload()
+                                    },500)
+
+
+                                }
+                            },
+                            error:function(err){
+                                layer.msg("服务器繁忙，稍后再试！")
+                            }
+                        })
+                    }else{
+                        layer.msg("y币不足，请充值")
+                    }
+                }
+            }
+        })
+        $(".save_2").on("click",function(){
+            var born_city_province = $(".born_city .p").val()
+            var born_city_city = $(".born_city .c").val()
+            var born_city_area = $(".born_city .a").val()
+            var xueli = $(".xueli").find("option:selected").val()
+            var job = $(".job").find("option:selected").val()
+            var qg = $(".qg").find("option:selected").val()
+            var height = $(".height").val()
+            var smoke = $(".smoke").find("option:selected").val()
+            var drink = $(".drink").find("option:selected").val()
+            var aihao = $(".aihao").find("option:selected").val()
+            var xingge = $(".xingge").find("option:selected").val()
+
+            if(!born_city_province || !born_city_city || !born_city_area){
+                layer.msg("请完善籍贯信息！")
+            }else{
+                $.ajax({
+                    url:"/user/detail/update",
+                    type:"post",
+                    data:{born_city_province:born_city_province,born_city_city:born_city_city,born_city_area:born_city_area,xueli:xueli,job:job,qg:qg,height:height,smoke:smoke,drink:drink,aihao:aihao,xingge:xingge},
+                    success:function(res){
+                        if(res == true){
+                            layer.msg("保存成功！")
+                            setTimeout(function(){
+                                window.location.reload()
+                            },500)
+                        }
+                    },
+                    error:function (err) {
+                        layer.msg("服务器繁忙，请稍后再试！")
+                    }
+                })
+            }
+
+        })
+    })
+</script>
+<script type="text/javascript" src="/common/js/distpicker.min.js"></script>
+
