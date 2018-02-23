@@ -8,7 +8,7 @@
       "exec_mode": "fork",
       "merge_logs": true,
       "env": {
-        "PORT": 5151,
+        "PORT": 80,
         "NODE_ENV": "development"
       }
     }
