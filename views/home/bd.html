@@ -1,0 +1,182 @@
+<head>
+    <title>微光网</title>
+    <style>
+        .am-slider:hover{cursor: pointer}
+        .c{padding-left:10%;padding-right:10%;font-size: 13px;margin-top: -20px;}
+        .yc,.fc{width:50%;float: left;background: #FFFFFF}
+        .yc{border-right:1px solid #84D092; padding: 20px 10px;}
+        .fc{padding: 20px 10px;}
+        .hd{
+            position: relative;
+            font-size: 18px;
+            color: #333;
+            height: 38px;
+            line-height: 38px;
+            border-bottom: 2px solid #32b150;}
+        .types{
+            display: inline-block;
+            margin-left: 20px;
+            font-size: 12px;
+            color: #999;}
+        .types .curr{
+            font-weight: 600;
+            color: #666;}
+        .more{
+            font-size: 12px;
+            float: right;
+            margin-right:10%;
+            color:#666
+        }
+        .ct{padding-left: 23px;}
+
+        .sing{width:427px;margin-top:8px;}
+
+        .s_name{
+            display: block;
+            float: left;
+            width: 210px;
+            color: #333;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 14px;
+        }
+        .singer{
+            display: block;
+            width: 80px;
+            color: #999;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 12px}
+        li{list-style: none}
+        .click_out{float:left}
+        .click_out a img{border-radius: 4px}
+        .left{float:left}
+        .right{float:right}
+        .spx{margin-left:20px}
+        .info{
+            line-height: 20px;
+            color:#999;
+            font-size: 12px}
+        .line_h{line-height: 32px;}
+    </style>
+</head>
+<div class="am-slider am-slider-default" data-am-flexslider="{playAfterPaused:3000}" v-on:mouseenter="silderStop">
+    <ul class="am-slides">
+        <li><img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" /></li>
+        <li><img src="http://s.amazeui.org/media/i/demos/bing-2.jpg" /></li>
+    </ul>
+</div>
+
+<div class="c">
+    <div class="yc">
+        <div class="hd">热门歌曲
+            <div class="types">
+                <a href="javascript:;" class="curr" data-style="全部" onclick="">编辑推荐</a>
+                <span class="bar">|</span>
+                <a href="javascript:;" data-style="古风" onclick="">古风</a>
+                <span class="bar">|</span>
+                <a href="javascript:;" data-style="流行" onclick="" class="">流行</a>
+                <span class="bar">|</span>
+                <a href="javascript:;" data-style="摇滚" onclick="">摇滚</a>
+                <span class="bar">|</span>
+                <a href="javascript:;" data-style="动漫/游戏" onclick="" class="">动漫游戏</a>
+            </div>
+            <a href="http://5sing.kugou.com/yc/list?t=1" target="_blank" class="more">更多&gt;</a>
+            <i class="arr"></i>
+        </div>
+        <div class="ct">
+            <ul id="render">
+                <script type="text/html" id="tpl">
+                    <%for(i=0;i < data.length;i++){%>
+                    <li class="sing">
+                        <div class="click_on">
+                            <a href="" class="s_name"><%=data[i].m_name%></a>
+                            <a href="" class="singer right"><%=data[i].singer%></a>
+                        </div>
+                        <div class="click_out" style="margin-left: -210px;margin-top: 16px;">
+                            <div class="left">
+                                <a href=href="/music/play.html?m_name=<%=data[i].m_name%>"><img class="am-radius" src=<%=data[i].m_bg%> width="86" height="106" style="border: 1px solid palegreen;" /></a>
+                            </div>
+                            <div class="left spx line_h">
+                                <p class="">词：<a href=""><%=data[i].ci%></a><i style="float: right;margin-left: 59px;"><a href="/music/play.html?m_name=<%=data[i].m_name%>"><img src="/images/erji.png" width="20px" height="17px" alt=""> </a></i></p>
+                                <p class=" ">曲：<a href=""><%=data[i].qu%></a></p>
+                                <p class="info"><%=data[i].sign%></p>
+                            </div>
+                        </div>
+                        <div class="layui-clear"></div>
+                    </li>
+                    <%}%>
+                </script>
+            </ul>
+        </div>
+        <div class="clear" style="width:0;height:0"></div>
+    </div>
+    <div class="fc">
+        <div class="hd">最新歌曲
+            <div class="types">
+                <a href="javascript:;" class="curr" data-style="全部" onclick="">编辑推荐</a>
+                <span class="bar">|</span>
+                <a href="javascript:;" data-style="古风" onclick="">古风</a>
+                <span class="bar">|</span>
+                <a href="javascript:;" data-style="流行" onclick="" class="">流行</a>
+                <span class="bar">|</span>
+                <a href="javascript:;" data-style="摇滚" onclick="">摇滚</a>
+                <span class="bar">|</span>
+                <a href="javascript:;" data-style="动漫/游戏" onclick="" class="">动漫游戏</a>
+            </div>
+            <a href="http://5sing.kugou.com/yc/list?t=1" target="_blank" class="more">更多&gt;</a>
+            <i class="arr"></i>
+        </div>
+        <div class="ct">
+            <ul id="render1">
+                <script type="text/html" id="tpl1">
+                    <%for(i=0;i < data.length;i++){%>
+                    <li class="sing">
+                        <div class="click_on">
+                            <a href="" class="s_name"><%=data[i].m_name%></a>
+                            <a href="" class="singer right"><%=data[i].singer%></a>
+                        </div>
+                        <div class="click_out" style="margin-left: -210px;margin-top: 16px;">
+                            <div class="left">
+                                <a href=href="/music/play.html?m_name=<%=data[i].m_name%>"><img class="am-radius" src=<%=data[i].m_bg%> width="86" height="106" style="border: 1px solid palegreen;" /></a>
+                            </div>
+                            <div class="left spx line_h">
+                                <p class="">词：<a href=""><%=data[i].ci%></a><i style="float: right;margin-left: 59px;"><a href="/music/play.html?m_name=<%=data[i].m_name%>"><img src="/images/erji.png" width="20px" height="17px" alt=""> </a></i></p>
+                                <p class=" ">曲：<a href=""><%=data[i].qu%></a></p>
+                                <p class="info"><%=data[i].sign%></p>
+                            </div>
+                        </div>
+                        <div class="layui-clear"></div>
+                    </li>
+                    <%}%>
+                </script>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<div class="hid yc_v">{{yc}}</div>
+<div class="hid bz_v">{{bz}}</div>
+<script>
+
+    $(function() {
+        $("#bd").addClass("am-active")
+        $("#bd").siblings().removeClass("am-active")
+        var yc = JSON.parse($(".yc_v").text())
+
+        $("#render").html(template("tpl",{data:yc}))
+
+        var bz = JSON.parse($(".bz_v").text())
+        $("#render1").html(template("tpl1",{data:bz}))
+        let slider= new Vue({
+            el:".am-slider",
+            methods:{
+
+            }
+        })
+    })
+
+
+</script>

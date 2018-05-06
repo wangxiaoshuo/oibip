@@ -11,7 +11,7 @@ var Constant = {
     //数据库连接信息
     'MAIN_DB_URI': 'mongodb://127.0.0.1:27017/',
     'MONGOS': false,
-    'COMMON_DB_NAME': 'db_town',
+    'COMMON_DB_NAME': 'db_weig',
     'AUTH_DB_NAME' : 'admin'
 }
 

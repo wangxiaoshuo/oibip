@@ -32,22 +32,15 @@ console.info('线程开启的环境: ', App.settings.env)
 require('./global.js')()
 global.isAPI = true
 
-App.use(Favicon(__dirname + '/public/common/images/tubiao.png'))
+var maxAge = global.IS_PRODUCTION ? 3600 * 24 * 7 : 0;
+App.use(Favicon(__dirname + '/public/images/favicon.png'))
 App.use(Logger('dev'))
 App.use(CookieParser)
-App.use(Express.static(Path.join(__dirname, 'public')))
+App.use(Express.static(Path.join(__dirname, 'public'),{maxAge: maxAge}))
 App.use(Timeout('60s'));
-var maxAge = global.IS_PRODUCTION ? 3600 * 24 * 7 : 0;
 App.use(Compression)
 App.use(BodyParser.json());
 App.use(BodyParser.urlencoded({extended: false}))
-
-App.use('/common/css', Express.static(Path.join(__dirname, '/public/common/css/'), {maxAge: maxAge}))
-App.use('/common/images', Express.static(Path.join(__dirname, '/public/common/images/'), {maxAge: maxAge}))
-App.use('/common/js', Express.static(Path.join(__dirname, '/public/common/js/'), {maxAge: maxAge}))
-App.use('/common/frontend/css', Express.static(Path.join(__dirname, '/public/common/frontend/css/'), {maxAge: maxAge}))
-App.use('/common/frontend/images', Express.static(Path.join(__dirname, '/public/common/frontend/images/'), {maxAge: maxAge}))
-App.use('/common/frontend/js', Express.static(Path.join(__dirname, '/public/common/frontend/js/'), {maxAge: maxAge}))
 
 //设置渲染视图模板
 App.set('version', JSONPackage.version)
@@ -56,19 +49,19 @@ template.config('base', Path.join(__dirname, 'views'))
 template.config('extname', '.html')
 App.engine('.html', template.__express)
 App.set('view engine', 'html')
-
+App.use('/uploads', Express.static(Path.join(__dirname, '/uploads/'), {maxAge: maxAge}))
 App.use(Session({
     cookie: {maxAge: (1000 * 3600 * 24 * 30 *24)},
     secret: 'www.oibip.com',//通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
-    store: new RedisStore({
-        'host' : '127.0.0.1',
-        'port' : '6379',
-        'ttl' : 1000*3600*24*30*24,
-        'db' : 1
-    }),//存到redis中
-    /* store: new MongoStore({// 将 session 存储到 mongodb
+    // store: new RedisStore({
+    //     'host' : '127.0.0.1',
+    //     'port' : '6379',
+    //     'ttl' : 1000*3600*24*30*24,
+    //     'db' : 1
+    // }),//存到redis中
+     store: new MongoStore({// 将 session 存储到 mongodb
      url: 'mongodb://localhost:27017/'// mongodb 地址
-     }),*/
+     }),
     resave: false,//resave: 即使 session 没有被修改，也保存 session 值，默认为 true。
     saveUninitialized: true //将session存储到内存中。
 }))
@@ -78,7 +71,7 @@ require('./models/mongodb.js').appInit()
 
 require('./controllers/router.js')(App)
 var port = process.env.PORT
-App.listen(port)
+App.listen(3000)
 console.info('应用监听端口: ', port)
 process.on('uncaughtException', function (err) {
     console.trace('未捕获的异常: ', err)

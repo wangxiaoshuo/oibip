@@ -1,0 +1,156 @@
+<head>
+    <meta charset="UTF-8">
+    <title>个人资料</title>
+    <link rel="stylesheet" href="/css/setting.css">
+    <style>
+        .username_note,.sex{
+            color: #aaa;
+            margin-left: 33px;
+            height: 38px;
+            display: block;
+            float: left;
+            line-height: 38px;
+        }
+        .city select{
+            height: 30px;
+            border-color: #D2D2D2!important;
+            color: #99a2aa;
+            border-radius: 2px;
+        }
+        .save_1,.save_2{
+            width: 110px;
+            height: 36px;
+            margin-left: 41%;
+        }
+        .sex_note{color: lightcoral;text-decoration: underline;}
+        .sex_note:hover{color:tomato}
+        .cc{
+            overflow: hidden;
+            width: 980px;
+            height: 100%;
+            margin: 10px auto 100px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.14);
+            background: #fafafa;
+            border-radius: 4px;
+            border:1px solid #ccc;
+        }
+        .am-radio{
+            display: inline-block;
+            width:44px;
+        }
+        .sex_change{margin-left:80px;}
+        .upload_panel{
+            position: absolute;
+            top: 191px;
+            left: 238px;
+        }
+        #file-list{
+            display: inline-block;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+    </style>
+</head>
+<div class="cc">
+    <div class="left">
+        <ul>
+            <li style="border-bottom: 1px solid #e1e2e5;height:60px;">
+                <a href="/site/setting.html">
+                    <i><img src="/images/zhuye.png" alt="" width="20px" height="20px"></i><span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/setting.html">
+                    <i><img src="/images/wszl.png" alt="" width="20px" height="20px"></i><span>个人资料</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/tx.html" class="select">
+                    <i><img src="/images/tx.png" alt="" width="20px" height="20px"></i><span>我的头像</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/sc.html">
+                    <i><img src="/images/sc.png" alt="" width="20px" height="20px"></i><span>我的收藏</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/fb.html">
+                    <i><img src="/images/fb.png" alt="" width="20px" height="20px"></i><span>发布作品</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/safe.html">
+                    <i><img src="/images/safe.png" alt="" width="20px" height="20px"></i><span>账号安全</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="right">
+        <div class="r_top">
+            <ol class="am-breadcrumb">
+                <li style="margin-left:20px;"><a href="#">主页</a></li>
+                <li class="am-active">头像</li>
+            </ol>
+        </div>
+
+        <div class="right_content">
+            <div class="basic">
+               <div class="tx_img">
+                   <img src={{tx}} class="am-circle" alt="" style="display: block; margin-left: 40%;border: solid;cursor: pointer" width="150" height="150px">
+               </div>
+                <div class="row cl">
+                    <div id="uploader" class="wu-example">
+                        <div class="queueList">
+                            <div id="dndArea" class="placeholder">
+                                <div id="filePicker" class="webuploader-container"><div class="webuploader-pick">点击选择要上传的头像</div><div id="rt_rt_1boblrdcj1akd15391csg13j5te51" style="position: absolute; top: 0px; left: 448px; width: 168px; height: 44px; overflow: hidden; bottom: auto; right: auto;"><input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/*"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div>
+                                <p>或将文件拖到这里</p>
+                            </div>
+                            <ul class="filelist"></ul></div>
+                        <div class="statusBar" style="display:none;">
+                            <div class="progress" style="display: none;">
+                                <span class="text">0%</span>
+                                <span class="percentage" style="width: 0%;"></span>
+                            </div><div class="info">共0张（0B），已上传0个文件</div>
+                            <div class="btns">
+                                <div id="filePicker2" class="webuploader-container"><div class="webuploader-pick">继续添加</div><div id="rt_rt_1boblrdd6jdr1n1pbsd1eb51vre6" style="position: absolute; top: 0px; left: 0px; width: 1px; height: 1px; overflow: hidden;"><input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/*"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div><div class="uploadBtn state-pedding upload-tx hidden"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="layui-btn save_1">保存</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $(".save_1").on("click",function(){
+            if($(".filelist").has("li").length > 0) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/upload/tx',
+                    dataType: 'json',
+                    data: {
+                        type:"tx",
+                    },
+                    success: function (res) {
+                        if(res){
+                            $(".uploadBtn").click()
+                        }
+                    },
+                    error: function () {
+                        layer.msg("上传失败")
+                    }
+                })
+            }else{
+                layer.msg("请选择要上传的头像")
+            }
+        })
+    });
+</script>
+

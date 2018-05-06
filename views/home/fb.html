@@ -1,0 +1,242 @@
+<head>
+    <meta charset="UTF-8">
+    <title>个人资料</title>
+    <link rel="stylesheet" href="/css/setting.css">
+    <style>
+        .username_note,.sex{
+            color: #aaa;
+            margin-left: 33px;
+            height: 38px;
+            display: block;
+            float: left;
+            line-height: 38px;
+        }
+        .city select{
+            height: 30px;
+            border-color: #D2D2D2!important;
+            color: #99a2aa;
+            border-radius: 2px;
+        }
+        .save_1,.save_2{
+            width: 110px;
+            height: 36px;
+            margin-left: 41%;
+        }
+        .sex_note{color: lightcoral;text-decoration: underline;}
+        .sex_note:hover{color:tomato}
+        .cc{
+            overflow: hidden;
+            width: 980px;
+            height: 100%;
+            margin: 10px auto 100px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.14);
+            background: #fafafa;
+            border-radius: 4px;
+            border:1px solid #ccc;
+        }
+        .am-radio{
+            display: inline-block;
+            width:56px;
+        }
+        .sex_change{margin-left:80px;}
+        .upload_panel{
+            position: absolute;
+            top: 191px;
+            left: 238px;
+        }
+        #file-list{
+            display: inline-block;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+    </style>
+</head>
+<div class="cc">
+    <div class="left">
+        <ul>
+            <li style="border-bottom: 1px solid #e1e2e5;height:60px;">
+                <a href="/site/setting.html">
+                    <i><img src="/images/zhuye.png" alt="" width="20px" height="20px"></i><span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/setting.html">
+                    <i><img src="/images/wszl.png" alt="" width="20px" height="20px"></i><span>个人资料</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/tx.html">
+                    <i><img src="/images/tx.png" alt="" width="20px" height="20px"></i><span>我的头像</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/sc.html">
+                    <i><img src="/images/sc.png" alt="" width="20px" height="20px"></i><span>我的收藏</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/fb.html" class="select">
+                    <i><img src="/images/fb.png" alt="" width="20px" height="20px"></i><span>发布作品</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/safe.html">
+                    <i><img src="/images/safe.png" alt="" width="20px" height="20px"></i><span>账号安全</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="right">
+        <div class="r_top">
+            <ol class="am-breadcrumb">
+                <li style="margin-left:20px;"><a href="#">主页</a></li>
+                <li class="am-active">发布作品</li>
+            </ol>
+        </div>
+
+        <div class="right_content">
+            <div class="basic">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">歌曲名称：</label>
+                    <div class="layui-input-block" style="float:left;margin-left:0px">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入歌曲名称" class="layui-input m_name" style="border-radius: 5px;width:225px;">
+                    </div>
+                    <span class="username_note">注：请填写歌曲名称</span>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">歌手：</label>
+                    <div class="layui-input-block" style="float:left;margin-left:0px">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入歌手" class="layui-input singer" style="border-radius: 5px;width:225px;">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">作曲：</label>
+                    <div class="layui-input-block" style="float:left;margin-left:0px">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入作曲" class="layui-input qu" style="border-radius: 5px;width:225px;">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">作词：</label>
+                    <div class="layui-input-block" style="float:left;margin-left:0px">
+                        <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入作词" class="layui-input ci" style="border-radius: 5px;width:225px;">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">类型：</label>
+                    <div class="sex_change">
+                        <div class="am-radio">
+                            <label>
+                                <span>古风</span> <input type="radio" name="doc-radio-1" value="0" checked="checked">
+                            </label>
+                        </div>
+                        <div class="am-radio" style="margin-top:7px;">
+                            <label>
+                                <span>游戏</span> <input type="radio" name="doc-radio-1" value="1">
+                            </label>
+                        </div>
+                        <div class="am-radio" style="margin-top:7px;">
+                            <label>
+                                <span>流行</span> <input type="radio" name="doc-radio-1" value="2">
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">歌曲介绍：</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="设置歌曲介绍" class="layui-textarea sign" style="width:618px"></textarea>
+                    </div>
+                </div>
+
+                <div class="row cl">
+                    <div id="uploader" class="wu-example">
+                        <div class="queueList">
+                            <div id="dndArea" class="placeholder">
+                                <div id="filePicker" class="webuploader-container"><div class="webuploader-pick">点击选择要上传的歌曲</div><div id="rt_rt_1boblrdcj1akd15391csg13j5te51" style="position: absolute; top: 0px; left: 448px; width: 168px; height: 44px; overflow: hidden; bottom: auto; right: auto;"><input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/*"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div>
+                                <p>或将文件拖到这里</p>
+                            </div>
+                            <ul class="filelist"></ul></div>
+                        <div class="statusBar" style="display:none;">
+                            <div class="progress" style="display: none;">
+                                <span class="text">0%</span>
+                                <span class="percentage" style="width: 0%;"></span>
+                            </div><div class="info">共0张（0B），已上传0个文件</div>
+                            <div class="btns">
+                                <div id="filePicker2" class="webuploader-container"><div class="webuploader-pick">继续添加</div><div id="rt_rt_1boblrdd6jdr1n1pbsd1eb51vre6" style="position: absolute; top: 0px; left: 0px; width: 1px; height: 1px; overflow: hidden;"><input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/*"><label style="opacity: 0; width: 100%; height: 100%; display: block; cursor: pointer; background: rgb(255, 255, 255);"></label></div></div><div class="uploadBtn state-pedding upload-music hidden"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="layui-btn save_1">保存</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(function() {
+
+        $(".sex_change input[value=\"0\"]").on("click",function () {
+            $(".sex_change input[value=\"0\"]").attr("checked","checked")
+            $(".sex_change input[value=\"1\"]").removeAttr("checked")
+            $(".sex_change input[value=\"2\"]").removeAttr("checked")
+        })
+
+        $(".sex_change input[value=\"1\"]").on("click",function () {
+            $(".sex_change input[value=\"1\"]").attr("checked","checked")
+            $(".sex_change input[value=\"0\"]").removeAttr("checked")
+            $(".sex_change input[value=\"2\"]").removeAttr("checked")
+        })
+
+        $(".sex_change input[value=\"2\"]").on("click",function () {
+            $(".sex_change input[value=\"0\"]").removeAttr("checked")
+            $(".sex_change input[value=\"0\"]").removeAttr("checked")
+            $(".sex_change input[value=\"2\"]").attr("checked","checked")
+        })
+        $(".save_1").on("click",function(){
+            if($(".filelist").has("li").length > 0 && !! $(".m_name").val() && !! $(".ci").val() && !! $(".qu").val() && !! $(".sign").val()) {
+                var m_name = $(".m_name").val()
+                var ci = $(".ci").val()
+                var qu = $(".qu").val()
+                var singer = $(".singer").val()
+                var sign = $(".sign").val()
+                var type = $(".sex_change input:checked").val()
+                var m_bg = "/images/m_bg.jpg"
+                $.ajax({
+                    type: 'POST',
+                    url: '/upload/music',
+                    dataType: 'json',
+                    data: {
+                        key:"m",
+                        m_name:m_name,
+                        ci:ci,
+                        qu:qu,
+                        singer:singer,
+                        sign:sign,
+                        type:type,
+                        m_bg:m_bg
+                    },
+                    success: function (res) {
+                        if(res){
+                            $(".uploadBtn").click()
+                        }
+                    },
+                    error: function () {
+                        layer.msg("上传失败")
+                    }
+                })
+            }else{
+                layer.msg("请完善歌曲信息后上传")
+            }
+        })
+    });
+</script>
+

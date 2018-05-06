@@ -28,8 +28,8 @@ exports.render = function (path, options, next) {
     if ('function' == typeof options) {
         next = options, options = {};
     }
-    var defaultPath = Path.join(options.views, options.host, path + '.html')
-    var defaultLayout = Path.join(options.views, options.host, (options.layout || 'layout') + '.html')
+    var defaultPath = Path.join(options.views, path + '.html')
+    var defaultLayout = Path.join(options.views,(options.layout || 'layout') + '.html')
     try {
         var tmpl = getTmpl(global.IS_PRODUCTION, defaultPath)
         var content = tmpl ? tmpl(options) : console.error('没有找到页面模板: ', path)

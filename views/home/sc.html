@@ -1,0 +1,142 @@
+<head>
+    <meta charset="UTF-8">
+    <title>个人资料</title>
+    <link rel="stylesheet" href="/css/setting.css">
+    <style>
+        .cc{
+            overflow: hidden;
+            width: 980px;
+            height: 100%;
+            margin: 10px auto 100px;
+            box-shadow: 0 2px 4px rgba(0,0,0,.14);
+            background: #fafafa;
+            border-radius: 4px;
+            border:1px solid #ccc;
+        }
+        .types .curr{
+            font-weight: 600;
+            color: #666;}
+        .ct{padding-left: 23px;}
+
+        .sing{width:298px;margin-top:8px;float:left}
+
+        .s_name{
+            display: block;
+            float: left;
+            width: 210px;
+            color: #333;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 14px;
+        }
+        .singer{
+            display: block;
+            width: 80px;
+            color: #999;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 12px}
+        li{list-style: none}
+        .click_out{float:left}
+        .click_out a img{border-radius: 4px}
+        .left{float:left}
+        .s_right{float:right}
+        .spx{margin-left:20px}
+        .info{
+            line-height: 20px;
+            color:#999;
+            font-size: 12px}
+        .line_h{line-height: 32px;}
+
+    </style>
+</head>
+<div class="cc">
+    <div class="left">
+        <ul>
+            <li style="border-bottom: 1px solid #e1e2e5;height:60px;">
+                <a href="/site/setting.html">
+                    <i><img src="/images/zhuye.png" alt="" width="20px" height="20px"></i><span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/setting.html">
+                    <i><img src="/images/wszl.png" alt="" width="20px" height="20px"></i><span>个人资料</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/tx.html">
+                    <i><img src="/images/tx.png" alt="" width="20px" height="20px"></i><span>我的头像</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/sc.html" class="select">
+                    <i><img src="/images/sc.png" alt="" width="20px" height="20px"></i><span>我的收藏</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/fb.html">
+                    <i><img src="/images/fb.png" alt="" width="20px" height="20px"></i><span>发布作品</span>
+                </a>
+            </li>
+            <li>
+                <a href="/site/safe.html">
+                    <i><img src="/images/safe.png" alt="" width="20px" height="20px"></i><span>账号安全</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="right">
+        <div class="r_top">
+            <ol class="am-breadcrumb">
+                <li style="margin-left:20px;"><a href="#">主页</a></li>
+                <li class="am-active">我的收藏</li>
+            </ol>
+        </div>
+
+        <div class="right_content" style="padding-top:10px;">
+            <div class="basic" style="padding-left:64px;">
+                <div class="ct">
+                    <ul id="render">
+                        <script type="text/html" id="tpl">
+                            <%for(i=0;i < data.length;i++){%>
+                        <li class="sing">
+                            <div class="click_on">
+                                <a href="" class="s_name"><%=data[i].m_name%></a>
+                                <a href="" class="singer s_right"><%=data[i].singer%></a>
+                            </div>
+                            <div class="click_out">
+                                <div class="left">
+                                    <a href="/music/play.html?m_name=<%=data[i].m_name%>"><img class="am-radius" src="<%=data[i].m_bg%>" width="86" height="106" style="border: 1px solid palegreen;"/></a>
+                                </div>
+                                <div class="left spx line_h" style="margin-left: -43px;">
+                                    <p class="">词：<a href=""><%=data[i].ci%></a><i style="float: right"><img src="/images/erji.png" width="20px" height="17px" alt=""></i></p>
+                                    <p class=" ">曲：<a href=""><%=data[i].qu%></a></p>
+                                    <p class="info"><%=data[i].sign%></p>
+                                </div>
+                            </div>
+                            <div class="layui-clear"></div>
+                        </li>
+                            <%}%>
+                        </script>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="hidden aa">{{music}}</div>
+<script>
+    $(function() {
+        var aa = $(".aa").text()
+        console.log(aa)
+        var data = JSON.parse(aa)
+
+        console.log("data>>>>",data)
+        $("#render").html(template("tpl",{data:data}))
+    });
+</script>
+

@@ -16,25 +16,32 @@ var adminSchema = Schema({
     password: {
         type:String,
     },
+    //邮箱
     email:{
         type:String
     },
+    //名字
     name:{
         type:String
     },
+    //电话
     tel:{
         type:String
     },
-    admin_role:{
+    //权限
+    role:{
         type:Number,
     },
-    registeTime:{
+    //注册时间
+    register_at:{
         type:String
     },
+    //上次登录时间
     lastTime:{
         type:String
     },
-    enable:{
+    //状态
+    stat:{
         type:Boolean
     }
 })

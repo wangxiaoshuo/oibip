@@ -1,0 +1,187 @@
+<head>
+    <meta charset="utf-8">
+    <style>
+        .box {
+            width: 570px;
+            margin: 80px auto 0 auto;
+            display: table;
+        }
+        .title {
+            width: 190px;
+            height: 60px;
+            color: #fff;
+            background-color: rgba(29, 137, 229, 0.7);
+            line-height: 60px;
+            text-align: center;
+            float: left;
+            font-size: 18px;
+        }
+        .select {
+            background-color: #fff;
+            color: #666666;
+        }
+        .opt {
+            width: 570px;
+            height: 310px;
+            background-color: #fff;
+            float: left;
+            border-radius: 0 0 10px 10px;
+            font-size: 14px;
+            color: #999999;
+        }
+        .opt-box {
+            margin: 50px auto 0 auto;
+            display: table;
+        }
+        .button {
+            width: 365px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 5px;
+            margin: 50px auto 0 auto;
+            background-color: #4aa1ea;
+            color: #fff;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: 0px;
+        }
+        .username{
+            width: 365rpx;
+            position: relative;
+        }
+        .username .text{
+            width: 85px;
+            text-align: center;
+            float: left;
+            height: 30px;
+            line-height: 30px;
+        }
+        .username input{
+            width: 240px;
+            height: 24px;
+            line-height: 30px;
+            border-radius: 2px;
+            border: 1px solid #cccccc;
+            padding: 0 20px;
+        }
+        .username input:focus{
+            border: 1px solid #4aa1ea;
+        }
+        .pwd,.pwd_again{
+            margin-top: 20px;
+        }
+        .opt-bottom{
+            width: 325px;
+            padding: 20px 20px 0 20px;
+            color: #1d89e5;
+            font-size: 14px;
+        }
+        .auto-login{
+            float: left;
+        }
+        .forget-pwd{
+            float: right;
+        }
+        .right-radius {
+            border-radius: 0 10px 0 0;
+        }
+        .left-radius {
+            border-radius: 10px 0 0 0;
+        }
+        .el-checkbox{
+            color: #999;
+        }
+        .clearLoginname{
+            position: absolute;
+            top:0;
+            right: 10px;
+            line-height: 26px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .clearLoginname:hover{
+            color: #4aa1ea
+        }
+        .back{background: url("/images/bac1.jpg") no-repeat;background-size:100% 100%;
+            overflow: hidden;
+            width: 100%;
+            height: 593px;
+        }
+    </style>
+</head>
+
+<div class="back">
+    <div class="box" v-title data-title="注册">
+        <div class="title left-radius login_tag " style="cursor: pointer">登录</div>
+        <div class="title select">注册</div>
+        <div class="title right-radius" style="cursor: pointer">下载APP</div>
+        <div class="opt">
+            <form>
+                <div class="opt-box">
+                    <div class="username">
+                        <div class="text"><span style="color:red">&nbsp;*&nbsp;</span>用户名：</div>
+                        <input />
+                        <i class="el-icon-close clearLoginname" v-bind:style="{display:clearLoginname}" v-on:click="clear"></i>
+                    </div>
+                    <div class="username pwd">
+                        <div class="text"><span style="color:red">&nbsp;*&nbsp;</span>密　码：</div>
+                        <input type="password"  />
+                    </div>
+                    <div class="username pwd_again">
+                        <div class="text"><span style="color:red">&nbsp;*&nbsp;</span>重复密码：</div>
+                        <input type="password"  />
+                    </div>
+                    <input class="button btn_register" value="注册" />
+                    <!--<div class="opt-bottom">-->
+                    <!--<div class="auto-login">-->
+                    <!--<el-checkbox v-model="autoChecked">一周免登录</el-checkbox>-->
+                    <!--</div>-->
+                    <!--<div class="forget-pwd">忘记密码</div>-->
+                    <!--</div>-->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".btn_register").on("click",function(){
+        var username = $(".username input").val()
+        var pwd = $(".pwd input").val()
+        var pwd_again = $(".pwd_again input").val()
+        var tx = "images/erji.png"
+        var data = {username:username,pwd:pwd,tx:tx}
+        if(pwd != pwd_again){
+            layer.msg("两次密码输入不正确！请重新输入");
+        }else{
+            $.ajax({
+                url:"/register",
+                type:"post",
+                data:data,
+                success:function(res){
+                    if(res.result == false){
+                        layer.msg(res.message);
+                        setTimeout(function(){
+                            location.href = "/register.html"
+                        },1200)
+                    }else{
+                        layer.msg(res.message);
+                        setTimeout(function(){
+                            location.href = "/"
+                        },1200)
+                    }
+                },
+                error:function(err){
+                    layer.msg("服务器繁忙！")
+                }
+            })
+        }
+
+
+    })
+    $(".login_tag").on("click",function(){
+        location.href = "/login.html"
+    })
+</script>

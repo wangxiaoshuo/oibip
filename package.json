@@ -1,12 +1,15 @@
 {
-  "name": "single_towen",
+  "name": "oibip",
   "version": "1.0.0",
-  "description": "This is a social platform ",
+  "description": "This is a ideal platform ",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "wangxiaoshuo",
+  "author": {
+    "name": "wangxiaoshuo",
+    "email": "1159818041@qq.com"
+  },
   "license": "ISC",
   "dependencies": {
     "art-template": "^3.1.3",
@@ -24,8 +27,8 @@
     "express-session": "^1.15.5",
     "fs": "^0.0.1-security",
     "fs-extra": "^0.23.1",
+    "hbs": "^4.0.1",
     "lodash": "^3.10.1",
-    "mammoth": "^1.4.2",
     "merge": "^1.2.0",
     "moment": "^2.18.1",
     "mongoose": "^4.10.8",

@@ -1,0 +1,68 @@
+<head>
+    <link rel="stylesheet" href="/css/lanrenzhijia.css" type="text/css" />
+</head>
+<div style="text-align:center;clear:both">
+    <script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>
+    <script src="/follow.js" type="text/javascript"></script>
+</div>
+<div class="music-player" style="margin-bottom: 244px;">
+    <div class="info">
+        <div class="left"> <a href="javascript:;" class="icon-shuffle"></a> <a href="javascript:;" class="icon-heart"></a> </div>
+        <div class="center">
+            <div class="jp-playlist">
+                <ul>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+        <div class="right"> <a href="javascript:;" class="icon-repeat"></a> <a href="javascript:;" class="icon-share"></a> </div>
+        <div class="progress jp-seek-bar"> <span class="jp-play-bar" style="width: 0%"></span> </div>
+    </div>
+    <div class="controls">
+        <div class="current jp-current-time">00:00</div>
+        <div class="play-controls">
+            <a href="javascript:;" class="icon-previous jp-previous" title="previous"></a>
+            <a href="javascript:;" class="icon-play jp-play" title="play"></a>
+            <a href="javascript:;" class="icon-pause jp-pause" title="pause"></a>
+            <a href="javascript:;" class="icon-next jp-next" title="next"></a>
+        </div>
+        <div class="volume-level jp-volume-bar">
+            <span class="jp-volume-bar-value" style="width: 0%"></span>
+            <a href="javascript:;" class="icon-volume-up jp-volume-max" title="max volume"></a>
+            <a href="javascript:;" class="icon-volume-down jp-mute" title="mute"></a>
+        </div>
+    </div>
+    <div id="jquery_jplayer" class="jp-jplayer"></div>
+</div>
+<div class="hid music">{{music}}</div>
+<script src="/js/jquery.min.js"></script>
+<script src='/js/jquery.jplayer.min.js'></script>
+<script src='/js/jplayer.playlist.min.js'></script>
+<script src="/js/lanrenzhijia.js"></script>
+
+<script>
+    var music = JSON.parse($(".music").text())
+    $(document).ready(function(){
+        var url = $(".url").text()
+        var playlist = [{
+            title:music.m_name,
+            artist:music.singer,
+            mp3:"/"+music.url,
+            //oga:"http://www.jplayer.org/audio/ogg/Miaow-02-Hidden.ogg",
+            poster: music.m_bg
+        }];
+
+        var cssSelector = {
+            jPlayer: "#jquery_jplayer",
+            cssSelectorAncestor: ".music-player"
+        };
+
+        var options = {
+            swfPath: "http://cdnjs.cloudflare.com/ajax/libs/jplayer/2.6.4/jquery.jplayer/Jplayer.swf",
+            supplied: "ogv, m4v, oga, mp3"
+        };
+
+        var myPlaylist = new jPlayerPlaylist(cssSelector, playlist, options);
+
+    });
+</script>

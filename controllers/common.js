@@ -7,7 +7,6 @@ var Judge = mongoose.models.judge
 var User = mongoose.models.user
 var Config = require('../config.js')
 var Constant = Config['Constant'] || {}
-var template = require('./lib/template.js')
 var md5 = require("blueimp-md5").md5
 var _ = require("lodash")
 var P = require("bluebird")
@@ -20,21 +19,22 @@ exports.loginView = function (req, res, next) {
     var options = {
         // L: Lang.getFile(req.session.lang, 'index')
     }
-    res.go('/common/login', options)
+    res.go('/home/login', options)
 }
 exports.registerView = function (req, res, next) {
     var options = {
         // L: Lang.getFile(req.session.lang, 'index')
     }
-    res.go('/common/register', options)
+    res.go('/home/register', options)
 }
 //登录
 exports.verifyLogin = function(req,res,next){
-    var username = req.body.login
+    var username = req.body.username
     var pwd = req.body.pwd
+    var message = ""
     User.PfindOne({username:username})
         .then(function(user){
-            var data
+            var data = ""
             if(user){
                 if(user.password == pwd){
                     req.session.username = username
@@ -58,9 +58,10 @@ exports.verifyLogin = function(req,res,next){
 }
 //注册
 exports.accountAdd = function(req,res,next){
-    var username = req.body.login
+    var username = req.body.username
     var pwd = req.body.pwd
-    var sex = req.body.sex
+    var tx = []
+       tx.push(req.body.tx)
     User.PfindOne({username:username})
         .then(function(doc){
             if(doc){
@@ -71,10 +72,10 @@ exports.accountAdd = function(req,res,next){
                 User.Pinsert({
                     username:username,
                     password:pwd,
-                    sex:sex
+                    tx:tx
                 }).then(function(){
                     req.session.username = username
-                    var data = {result:true,message:"注册成功,开始你的美丽邂逅吧！"}
+                    var data = {result:true,message:"注册成功！"}
                     res.send(data)
                 })
             }
@@ -85,20 +86,21 @@ exports.accountAdd = function(req,res,next){
 //判断用户是否登录
 exports.hasLogin = function (req,res,next) {
     var username = req.session.username
-    var data
+    var data = ""
     if(username){
+        console.log("111111111")
         User.PfindOne({username:username})
             .then(function(user){
-                var nickname = user.nickname
-                var charm = user.charm
-                var credit = user.credit
-                var gold = user.gold
-                console.log(nickname)
-                if(nickname){
-                    data = {lt:true,user_name:nickname,charm:charm,credit:credit,gold:gold}
-                }else{
-                    data = {lt:true,user_name:username,charm:charm,credit:credit,gold:gold}
+                var nickname = user.nickname;
+                var tx = "/"+user.tx[user.tx.length -1]
+                if(!user.nickname){
+                    nickname = user.username
                 }
+                if(!user.tx){
+                    tx = "/images/erji.png"
+                }
+                console.log(nickname)
+                var data = {lt:true,nickName:nickname,tx:tx}
                 res.send(data)
             })
     }else{

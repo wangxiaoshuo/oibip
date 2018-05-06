@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "single_town",
+      "name": "WeiG",
       "script": "app.js",
       "max_memory_restart": "5G",
       "instances": 1,

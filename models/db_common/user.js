@@ -25,46 +25,10 @@ var userSchema = Schema({
     password: {
         type:String
     },
-    sex:{
-      type:String
-    },
     age:{
       type:String
     },
-    //出生日期
-    born_at:{
-      type:Object
-    },
-    //工作地点
-    job_city:{
-        type:Object
-    },
-    //籍贯
-    born_city:{
-        type:Object
-    },
-    xueli:{
-        type:Number
-    },
-    job:{
-        type:Number
-    },
-    qg:{
-        type:Number
-    },
-    height:{
-        type:String
-    },
-    smoke:{
-        type:Number
-    },
-    drink:{
-        type:Number
-    },
-    favourite:{
-        type:Number
-    },
-    character:{
+    sex:{
         type:Number
     },
     //联系方式
@@ -80,48 +44,31 @@ var userSchema = Schema({
     wx:{
         type:String
     },
+    //工作地点
+    job_city:{
+        type:Object
+    },
+    born_at:{
+        type:String
+    },
     //头像
     tx:{
-        type:String
+        type:Array
     },
-    //相册
-    img:[{_id:false,url:String,time:String,vip:Number}],
-    //语音简介
-    audio:{
-        type:String
-    },
-    //视频
-    video:[{_id:false,url:String,name:String,time:String,vip:Number}],
-
     role:{
         type:Number,
     },
-    vip:{
-        type:Number
-    },
-    //信誉值
-    credit:{
-      type:Number,
-        default:100
-    },
-    //魅力值
-    charm:{
-        type:Number,
-        default:50
-    },
-    //标签
-    yx:[{_id:false,name:String,time:String}],
     //金币
     gold:{
       type:String,
         default:0
     },
-    //收到的礼物
-    gift:[{_id:false,name:String,sum:Number,from:String}],
     //签名
     qm:{
         type:String
     },
+    music:[{m_name:String,singer:String,qu:String,ci:String,sign:String,m_bg:String,url:String}],
+    sc:[{m_name:String,singer:String,qu:String,ci:String,sign:String,m_bg:String,url:String}],
     create_at:{
         type:String
     },

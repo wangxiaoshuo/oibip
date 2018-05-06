@@ -61,17 +61,3 @@ template.helper('dateFormat', function (date, format) {
     return format;
 })
 
-template.helper('imageForBig', function (path) {
-    path = path.replace('/data/images', '/data/images/big')
-    return path
-})
-
-template.helper('roleForLabel', function (role) {
-    var label = '投标人'
-    if (role == global.ACCOUNT_ROLES.bidders) {
-        label = '投标人'
-    } else if (role == global.ACCOUNT_ROLES.manager) {
-        label = '管理员'
-    }
-    return label
-})
