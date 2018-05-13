@@ -342,6 +342,18 @@ jQuery(function() {
                         },500)
 
                     }
+                    if($upload.hasClass('admin-upload-music')){
+                        layer.msg('歌曲上传成功!');
+                        setTimeout(function(){
+                            parent.location.replace("/upmusic.html")
+                        },500)
+                    }
+                    if($upload.hasClass('upload-poster')){
+                        layer.msg('海报上传成功!');
+                        setTimeout(function(){
+                            parent.location.replace("/poster.html")
+                        },500)
+                    }
                     console.log("点击事件已结束")
                 } else {
                     // 没有成功的图片，重设

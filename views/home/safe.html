@@ -219,6 +219,9 @@
                         data:{email:e.data},
                         success:function(res){
                             layer.msg("设置成功！")
+                            setTimeout(function () {
+                                location.href = "/site/safe.html"
+                            },500)
                         },
                         error:function(err){
                             layer.msg("设置失败！")
@@ -237,9 +240,12 @@
                     $.ajax({
                         url:"/set/qq",
                         type:"post",
-                        data:{email:e.data},
+                        data:{qq:e.data},
                         success:function(res){
                             layer.msg("设置成功！")
+                            setTimeout(function () {
+                                location.href = "/site/safe.html"
+                            },500)
                         },
                         error:function(err){
                             layer.msg("设置失败！")
@@ -258,9 +264,12 @@
                     $.ajax({
                         url:"/set/wx",
                         type:"post",
-                        data:{email:e.data},
+                        data:{wx:e.data},
                         success:function(res){
                             layer.msg("设置成功！")
+                            setTimeout(function () {
+                                location.href = "/site/safe.html"
+                            },500)
                         },
                         error:function(err){
                             layer.msg("设置失败！")
@@ -279,9 +288,12 @@
                     $.ajax({
                         url:"/set/tel",
                         type:"post",
-                        data:{email:e.data},
+                        data:{tel:e.data},
                         success:function(res){
                             layer.msg("设置成功！")
+                            setTimeout(function () {
+                                location.href = "/site/safe.html"
+                            },500)
                         },
                         error:function(err){
                             layer.msg("设置失败！")
@@ -297,12 +309,16 @@
             $('#my-prompt5').modal({
                 relatedTarget: this,
                 onConfirm: function(e) {
+                    console.log(e.data)
                     $.ajax({
                         url:"/set/pwd",
                         type:"post",
-                        data:{email:e.data},
+                        data:{pwd:e.data},
                         success:function(res){
                             layer.msg("修改成功！")
+                            setTimeout(function () {
+                                location.href = "/site/safe.html"
+                            },500)
                         },
                         error:function(err){
                             layer.msg("修改失败！")

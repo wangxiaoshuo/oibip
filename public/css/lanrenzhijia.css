@@ -173,6 +173,9 @@ body {
 .icon-play {
 	background-image: url("/images/xlBv5aR.png");
 }
+.icon-download{
+	background-image: url("/images/download.png");
+}
 .icon-pause {
 	background-image: url("/images/lIhwduj.png");
 }

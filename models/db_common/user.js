@@ -53,7 +53,7 @@ var userSchema = Schema({
     },
     //头像
     tx:{
-        type:Array
+        type:String
     },
     role:{
         type:Number,

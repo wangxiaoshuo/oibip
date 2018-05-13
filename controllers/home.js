@@ -4,6 +4,8 @@
 var mongoose = require("mongoose")
 var User = mongoose.models.user
 var Music = mongoose.models.music
+var Monitor = mongoose.models.mointor
+var Poster = mongoose.models.poster
 var Config = require('../config.js')
 var Constant = Config['Constant'] || {}
 var fs = require('fs')
@@ -18,71 +20,132 @@ var json = {state: -1, message: '操作失败', data: {}}
 var moment = require("moment")
 moment.locale('zh-cn')
 
+
+function test(opt){
+    console.log(opt)
+}
+
+exports.searchMusic = function(req,res,next){
+    var search = req.body.search
+    Music.PfindOne({m_name:search})
+        .then(function(doc){
+            if(!!doc){
+                var m_name = doc.m_name
+                res.send({m_name:m_name})
+            }else{
+                res.send(false)
+            }
+
+        })
+}
+
 exports.indexView = function (req, res, next) {
-    Music.find({type:0}).limit(10)
+    Music.find({type:0}).sort({update_at:-1}).limit(10)
         .then(function(doc){
             var yc = JSON.stringify(doc)
             console.log("yc",yc)
-            Music.find({type:1}).limit(10)
+            Music.find({type:1}).sort({update_at:-1}).limit(10)
                 .then(function(doc1){
                     var bz = JSON.stringify(doc1)
-                    var options = {
-                        yc:yc,
-                        bz:bz
-                        // L: Lang.getFile(req.session.lang, 'index')
-                    }
-                    res.go('/home/index', options)
+                    Poster.PfindOne({id:1})
+                        .then(function (poster) {
+                            var posterArr = poster.poster
+
+                            var options = {
+                                yc:yc,
+                                bz:bz,
+                                posterArr:JSON.stringify(posterArr)
+                                // L: Lang.getFile(req.session.lang, 'index')
+                            }
+                            res.go('/home/index', options)
+                        })
+
                 })
         })
 
 }
 exports.ycView = function (req, res, next) {
-    Music.Pfind({type:0})
+    Music.find({type:0}).sort({playNum:-1})
         .then(function(doc){
-            var yc = JSON.stringify(doc)
-            console.log("yc",yc)
-            var options = {
-                yc:yc,
-                // L: Lang.getFile(req.session.lang, 'index')
-            }
-            res.go('/home/yc', options)
-        })
+            var hot_yc = JSON.stringify(doc)
 
+            Music.find({type:0}).sort({update_at:-1})
+                .then(function (doc2) {
+                    var new_yc = JSON.stringify(doc2)
+
+                    Poster.PfindOne({id:1})
+                        .then(function (poster) {
+                            var posterArr = JSON.stringify(poster.poster)
+                            var options = {
+                                hot_yc:hot_yc,
+                                new_yc:new_yc,
+                                posterArr:posterArr
+                                // L: Lang.getFile(req.session.lang, 'index')
+                            }
+                            res.go('/home/yc', options)
+                        })
+
+                })
+
+        })
 }
 exports.bzView = function (req, res, next) {
-    Music.Pfind({type:1})
+    Music.find({type:1}).sort({playNum:-1})
         .then(function(doc){
-            var bz = JSON.stringify(doc)
-            var options = {
-                bz:bz,
-                // L: Lang.getFile(req.session.lang, 'index')
-            }
-            res.go('/home/bz', options)
-        })
+            var hot_bz = JSON.stringify(doc)
 
+            Music.find({type:1}).sort({update_at:-1})
+                .then(function (doc2) {
+                    var new_bz = JSON.stringify(doc2)
+                    Poster.PfindOne({id:1})
+                        .then(function (poster) {
+                            var posterArr = JSON.stringify(poster.poster)
+                            var options = {
+                                hot_bz:hot_bz,
+                                new_bz:new_bz,
+                                posterArr:posterArr
+                                // L: Lang.getFile(req.session.lang, 'index')
+                            }
+                            res.go('/home/bz', options)
+                        })
+                })
+
+        })
 }
 exports.bdView = function (req, res, next) {
-    Music.Pfind({type:0})
+    Music.find({type:0}).sort({playNum:-1}).limit(20)
         .then(function(doc){
-            var bd = JSON.stringify(doc)
-            var options = {
-                bd:bd,
-                // L: Lang.getFile(req.session.lang, 'index')
-            }
-            res.go('/home/bd', options)
+            var yc_sort = JSON.stringify(doc)
+            Music.find({type:1}).sort({playNum:-1}).limit(20)
+                .then(function(doc2){
+                    var bz_sort = JSON.stringify(doc2)
+                    Poster.PfindOne({id:1})
+                        .then(function (poster) {
+                            var posterArr = JSON.stringify(poster.poster)
+                            var options = {
+                                yc_sort:yc_sort,
+                                bz_sort:bz_sort,
+                                posterArr:posterArr
+                                // L: Lang.getFile(req.session.lang, 'index')
+                            }
+                            res.go('/home/bd', options)
+                        })
+                })
         })
 
 }
-
 
 
 exports.musicPlay = function (req, res, next) {
     var m_name = req.query.m_name
     Music.PfindOne({m_name:m_name})
         .then(function(doc){
+            var url = doc.url.replace(/(^\s*)|(\s*$)/g, "");
+            test(url)
             var music = JSON.stringify(doc)
             var options = {
-                music:music
+                music:music,
+                url:url
             }
             res.go('/home/m_play', options)
         })
@@ -145,7 +208,7 @@ exports.settingView = function (req,res,next) {
 }
 
 exports.userCostUpdate = function (req,res,next) {
-    var qm = req.body.qm
+    var qm = Util.getFilterStr_g(req.body.qm)
     var born_at = req.body.born_at
     var job_city_province = req.body.job_city_province
     var job_city_city = req.body.job_city_city
@@ -208,7 +271,7 @@ exports.txView = function (req,res,next) {
         .then(function(user){
             var tx = "/images/erji.png"
             if(!!user.tx){
-                tx = "/"+user.tx[user.tx.length -1]
+                tx = "/"+user.tx
             }
             var options = {
                 tx:tx
@@ -276,7 +339,7 @@ exports.upload = function (req,res,next) {
                 console.log("target_path",target_path)
                 if(kind == "tx"){
                     console.log("tx")
-                    User.update({username:username},{$push:{tx:target_path}})
+                    User.update({username:username},{$set:{tx:target_path}})
                         .then(function(doc){
                             var src = []
                             src[i] = fs.createReadStream(tmp_path[i])
@@ -298,7 +361,7 @@ exports.upload = function (req,res,next) {
                     var sign = req.session.sign
                     var type = req.session.type
                     var m_bg = req.session.m_bg
-                    User.PfindOneAndUpdate({username:username},{$addToSet:{sc:{m_name:m_name,singer:singer,qu:qu,ci:ci,sign:sign,type:type,url:target_path,by:username,m_bg:m_bg}}})
+                    User.PfindOneAndUpdate({username:username},{$addToSet:{sc:{m_name:m_name,singer:singer,qu:qu,ci:ci,sign:sign,type:type,url:target_path,by:username,m_bg:m_bg,update_at:moment(new Date()).format('YYYY-MM-DD HH:mm:ss')}}})
                         .then(function(doc){
                             var m_name = req.session.m_name
                             var singer = req.session.singer
@@ -307,7 +370,7 @@ exports.upload = function (req,res,next) {
                             var sign = req.session.sign
                             var type = req.session.type
                             var m_bg = req.session.m_bg
-                            Music.Pinsert({m_name:m_name,singer:singer,qu:qu,ci:ci,sign:sign,type:type,url:target_path,by:username,m_bg:m_bg})
+                            Music.Pinsert({m_name:m_name,singer:singer,qu:qu,ci:ci,sign:sign,type:type,playNum:0,url:target_path,by:username,m_bg:m_bg,update_at:moment(new Date()).format('YYYY-MM-DD HH:mm:ss')})
                                 .then(function(){
                                     var src = []
                                     src[i] = fs.createReadStream(tmp_path[i])
@@ -322,8 +385,9 @@ exports.upload = function (req,res,next) {
                                     })
                                 })
                         })
-                }else if(kind == "m_bg"){
-                    User.update({username:username},{$push:{tx:target_path}})
+                }else if(kind == "poster"){
+                    console.log("poster")
+                    Poster.PfindOneAndUpdate({id:1},{$addToSet:{poster:{url:target_path}}})
                         .then(function(doc){
                             var src = []
                             src[i] = fs.createReadStream(tmp_path[i])
@@ -365,6 +429,7 @@ exports.uploadMusic = function (req,res,next) {
 
 exports.safeEmail = function (req,res,next) {
     var email = req.body.email
+    test(email)
     User.update({username:req.session.username},{$set:{email:email}})
         .then(function(){
             res.send(true)
@@ -373,6 +438,7 @@ exports.safeEmail = function (req,res,next) {
 }
 exports.safeQQ = function (req,res,next) {
     var qq = req.body.qq
+    test("qq",qq)
     User.update({username:req.session.username},{$set:{qq:qq}})
         .then(function(){
             res.send(true)

@@ -63,16 +63,19 @@
     </style>
 </head>
 <div class="am-slider am-slider-default" data-am-flexslider="{playAfterPaused:3000}" v-on:mouseenter="silderStop">
-    <ul class="am-slides">
-        <li><img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" /></li>
-        <li><img src="http://s.amazeui.org/media/i/demos/bing-2.jpg" /></li>
+    <ul class="am-slides" id="render2">
+        <script type="text/html" id="tpl2">
+            <%for(i=0;i < data.length;i++){%>
+            <li><img src=<%=data[i].url%> /></li>
+            <%}%>
+        </script>
     </ul>
 </div>
 
 <div class="c">
     <div class="yc">
         <div class="hd">热门歌曲
-            <div class="types">
+            <!--<div class="types">
                 <a href="javascript:;" class="curr" data-style="全部" onclick="">编辑推荐</a>
                 <span class="bar">|</span>
                 <a href="javascript:;" data-style="古风" onclick="">古风</a>
@@ -82,8 +85,8 @@
                 <a href="javascript:;" data-style="摇滚" onclick="">摇滚</a>
                 <span class="bar">|</span>
                 <a href="javascript:;" data-style="动漫/游戏" onclick="" class="">动漫游戏</a>
-            </div>
-            <a href="http://5sing.kugou.com/yc/list?t=1" target="_blank" class="more">更多&gt;</a>
+            </div>-->
+            <!--<a href="http://5sing.kugou.com/yc/list?t=1" target="_blank" class="more">更多&gt;</a>-->
             <i class="arr"></i>
         </div>
         <div class="ct">
@@ -93,9 +96,11 @@
                     <li class="sing">
                         <div class="click_on">
                             <a href="" class="s_name"><%=data[i].m_name%></a>
-                            <a href="" class="singer right"><%=data[i].singer%></a>
+                            <a href="" class="singer left"><%=data[i].singer%></a>
+                            <span style="float:left;font-size: 12px;font-weight: 900;color: tomato;"><i><img
+                                    src="/images/hot.png" alt="" width="22px" height="22px;"></i><%=data[i].playNum%></span>
                         </div>
-                        <div class="click_out" style="margin-left: -210px;margin-top: 16px;">
+                        <div class="click_out" style="margin-left: -320px;margin-top: 16px;">
                             <div class="left">
                                 <a href=href="/music/play.html?m_name=<%=data[i].m_name%>"><img class="am-radius" src=<%=data[i].m_bg%> width="86" height="106" style="border: 1px solid palegreen;" /></a>
                             </div>
@@ -115,7 +120,7 @@
     </div>
     <div class="fc">
         <div class="hd">最新歌曲
-            <div class="types">
+            <!--<div class="types">
                 <a href="javascript:;" class="curr" data-style="全部" onclick="">编辑推荐</a>
                 <span class="bar">|</span>
                 <a href="javascript:;" data-style="古风" onclick="">古风</a>
@@ -126,7 +131,7 @@
                 <span class="bar">|</span>
                 <a href="javascript:;" data-style="动漫/游戏" onclick="" class="">动漫游戏</a>
             </div>
-            <a href="http://5sing.kugou.com/yc/list?t=1" target="_blank" class="more">更多&gt;</a>
+            <a href="http://5sing.kugou.com/yc/list?t=1" target="_blank" class="more">更多&gt;</a>-->
             <i class="arr"></i>
         </div>
         <div class="ct">
@@ -136,11 +141,13 @@
                     <li class="sing">
                         <div class="click_on">
                             <a href="" class="s_name"><%=data[i].m_name%></a>
-                            <a href="" class="singer right"><%=data[i].singer%></a>
+                            <a href="" class="singer left"><%=data[i].singer%></a>
+                            <span style="float:left;margin-left:-10px;font-size: 12px;font-weight: 900;color: tomato;"><i><img
+                                    src="/images/time.png" alt="" width="10px" height="10px;"></i> <%=data[i].update_at%></span>
                         </div>
-                        <div class="click_out" style="margin-left: -210px;margin-top: 16px;">
+                        <div class="click_out" style="margin-left: -424px;margin-top: 16px;">
                             <div class="left">
-                                <a href=href="/music/play.html?m_name=<%=data[i].m_name%>"><img class="am-radius" src=<%=data[i].m_bg%> width="86" height="106" style="border: 1px solid palegreen;" /></a>
+                                <a href="/music/play.html?m_name=<%=data[i].m_name%>"><img class="am-radius" src=<%=data[i].m_bg%> width="86" height="106" style="border: 1px solid palegreen;" /></a>
                             </div>
                             <div class="left spx line_h">
                                 <p class="">词：<a href=""><%=data[i].ci%></a><i style="float: right;margin-left: 59px;"><a href="/music/play.html?m_name=<%=data[i].m_name%>"><img src="/images/erji.png" width="20px" height="17px" alt=""> </a></i></p>
@@ -157,18 +164,22 @@
 
     </div>
 </div>
-<div class="hid yc_v">{{yc}}</div>
-<div class="hid bz_v">{{bz}}</div>
+<div class="hid hot_bz">{{hot_bz}}</div>
+<div class="hid new_bz">{{new_bz}}</div>
+<div class="hid poster">{{posterArr}}</div>
 <script>
     $("#bz").addClass("am-active")
     $("#bz").siblings().removeClass("am-active")
     $(function() {
-        var yc = JSON.parse($(".yc_v").text())
+        var hot_bz = JSON.parse($(".hot_bz").text())
 
-        $("#render").html(template("tpl",{data:yc}))
+        $("#render").html(template("tpl",{data:hot_bz}))
 
-        var bz = JSON.parse($(".bz_v").text())
-        $("#render1").html(template("tpl1",{data:bz}))
+        var new_bz = JSON.parse($(".new_bz").text())
+        $("#render1").html(template("tpl1",{data:new_bz}))
+
+        var poster = JSON.parse($(".poster").text())
+        $("#render2").html(template("tpl2",{data:poster}))
         let slider= new Vue({
             el:".am-slider",
             methods:{

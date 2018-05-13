@@ -43,6 +43,12 @@ var musicSchema = Schema({
     },
     by:{
         type:String
+    },
+    playNum:{
+        type:Number
+    },
+    update_at:{
+        type:String
     }
 })
 

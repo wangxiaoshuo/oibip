@@ -6,6 +6,8 @@
 var _ = require('lodash')
 var multer = require('multer')
 var upload = multer({dest:'upload/'})
+var mongoose = require("mongoose")
+var Monitor = mongoose.models.mointor
 
 var Config = require('../config.js')
 var Constant = Config['Constant'] || {}
@@ -80,37 +82,56 @@ function commonRoutes(app){
 
 function adminRoutes(app){
     var admin = require('./admin.js')
+    var common = require('./common.js')
+    //后台管理
+    app.get("/admin.html",common.getMusicNum,common.getUserNum,admin.adminView)
+
+    //用户管理
+    app.get("/uquery.html",common.getMusicNum,admin.userQueryView)
+    app.get("/ureport.html",common.getMusicNum,admin.userReportView)
+    app.post("/user/Search",admin.userSearch)
+    app.post("/user/del",admin.userDel)
+
+    app.get("/mquery.html",common.getMusicNum,admin.musicQueryView)
+    app.get("/upmusic.html",common.getMusicNum,admin.uplaodMusicView)
+    app.post("/music/Search",admin.musicSearch)
+    app.post("/music/del",admin.musicDel)
+
+    app.get("/poster.html",admin.posterView)
+    app.post('/upload/poster',admin.uploadPoster)
 }
 function homeRoutes(app){
+    var common = require('./common.js')
     var home = require('./home.js')
-    app.get('/',home.indexView)
-    app.get('/yc.html',home.ycView)
-    app.get('/bz.html',home.bzView)
-    app.get('/bd.html',home.bdView)
+    app.get('/',common.addVisitNum,home.indexView)
+    app.get('/yc.html',common.addVisitNum,home.ycView)
+    app.get('/bz.html',common.addVisitNum,home.bzView)
+    app.get('/bd.html',common.addVisitNum,home.bdView)
 
-    app.get('/my/space.html',home.settingView)
+    app.post("/search/music",home.searchMusic)
     //主页-个人资料
     app.get('/site/setting.html',home.settingView)
     app.post('/user/cost/update',home.userCostUpdate)
     //主页-头像
-    app.get('/site/tx.html',home.txView)
+    app.get('/site/tx.html',common.addVisitNum,home.txView)
     app.post('/upload/tx',home.uploadTx)
     app.post('/file-upload.html',home.upload)
     //主页-发布作品
-    app.get('/site/fb.html',home.fbView)
+    app.get('/site/fb.html',common.addVisitNum,home.fbView)
     app.post('/upload/music',home.uploadMusic)
     //主页-账号安全
-    app.get('/site/safe.html',home.safeView)
+    app.get('/site/safe.html',common.addVisitNum,home.safeView)
     app.post("/set/email",home.safeEmail)
     app.post("/set/qq",home.safeQQ)
     app.post("/set/wx",home.safeWx)
     app.post("/set/tel",home.safeTel)
     app.post("/set/pwd",home.safePwd)
     //主页-我的收藏
-    app.get('/site/sc.html',home.scView)
+    app.get('/site/sc.html',common.addVisitNum,home.scView)
 
     //播放器
-    app.get('/music/play.html',home.musicPlay)
+    app.get('/music/play.html',common.addVisitNum,common.addMusicPlayNum,common.addSelfPlayNum,home.musicPlay)
+
 }
 
 function isLogin(req,res,next){
@@ -120,5 +141,19 @@ function isLogin(req,res,next){
         res.redirect('/login.html');
     }
 }
+function addVisitNum(req,res,next){
+    Monitor.find({})
+        .then(function(doc){
+            console.log("aaaaaa",doc)
+            if(doc.length > 0){
 
+            }else{
+                Monitor.Pinsert({musicNum:0})
+                    .then(function () {
+                        next()
+                    })
+            }
+            next()
+        })
+}
 

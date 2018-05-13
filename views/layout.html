@@ -67,7 +67,7 @@
 <body>
 <header class="am-topbar">
         <h1 class="am-topbar-brand">
-                <a href="#" class="logo">
+                <a href="/" class="logo">
                         <img src="/images/logo.png" alt="logo">
                 </a>
         </h1>
@@ -87,7 +87,7 @@
 
                 <form class="am-topbar-form am-topbar-left am-form-inline search_form" role="search">
                         <div class="am-form-group am-search">
-                                <input type="text" class="am-form-field am-input-sm" placeholder="搜索..." style="border-radius: 14px;height: 29px;width:17rem;margin-top: 3px;padding-left:17px;">
+                                <input type="text" class="am-form-field am-input-sm search_input" placeholder="搜索..." style="border-radius: 14px;height: 29px;width:17rem;margin-top: 3px;padding-left:17px;">
                                 <i class="search_btn" v-on:mouseenter="imgSrcChange" v-on:mouseout="imgSrcChange"><img src="/images/search.png" alt=""></i>
                         </div>
                 </form>
@@ -99,7 +99,7 @@
                         <button class="am-btn am-btn-primary am-topbar-btn am-btn-sm login">登录</button>
                 </div>
                 <div class="user_panel am-topbar-right hidden" style="margin-top:5px;cursor: pointer;">
-                        <a href="/my/space.html">
+                        <a href="/site/setting.html">
                                 <img src="/images/erji.png" class="layui-nav-img">
                         </a>
                         <span class="nickeName" style="font-size: 12px"></span>
@@ -134,6 +134,27 @@
                 }
             }
         })
+        $(".search_btn").on("click",function(){
+            var text = $(".search_input").val()
+            console.log(text)
+            $.ajax({
+                url:"/search/music",
+                type:"POST",
+                data:{search:text},
+                dataType: 'json',
+                success:function(res){
+                    if(!!res){
+                        location.href = "/music/play.html?m_name=" + res.m_name
+                    }else{
+                        layer.msg("此歌曲暂未收录")
+                    }
+
+                },
+                error:function(err){
+                    layer.msg("此歌曲暂未收录")
+                }
+            })
+        })
         $(".login").on("click",function(){
             location.href = "/login.html"
         })
@@ -160,7 +181,7 @@
 
         })
         $(".user_panel").on("click",function () {
-            location.href = "/my/space.html"
+            location.href = "/site/setting.html"
         })
 </script>
 </body>

@@ -157,9 +157,13 @@
                         location.href = "/login.html"
                     },1200)
                 }else{
+                    var url = "/"
+                    if(res.isAdmin){
+                        url = "/admin.html"
+                    }
                     layer.msg(res.message);
                     setTimeout(function(){
-                        location.href = "/"
+                        location.href = url
                     },1200)
                 }
             },
